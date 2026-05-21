@@ -1,0 +1,20 @@
+[package]
+name = "fang"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+anyhow = "1.0.102"
+base64 = "0.22.1"
+comfy-table = "7.2.2"
+hex = "0.4.3"
+indicatif = "0.18.4"
+owo-colors = "4.3.0"
+reqwest = { version = "0.13.3", features = ["json"] }
+rprompt = "2.2.0"
+rustyline = "18.0.0"
+scraper = "0.27.0"
+serde = { version = "1.0.228", features = ["derive"] }
+serde_json = "1.0.149"
+tokio = { version = "1.52.3", features = ["full"] }
+trust-dns-resolver = "0.23.2"
