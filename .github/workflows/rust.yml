@@ -1,0 +1,82 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  release:
+    types: [created]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  test:
+    name: Test (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Check
+        run: cargo check
+      - name: Clippy
+        run: cargo clippy -- -D warnings
+      - name: Test
+        run: cargo test
+
+  build:
+    name: Build (${{ matrix.target }})
+    needs: test
+    if: github.event_name == 'release'
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - target: x86_64-unknown-linux-gnu
+            os: ubuntu-latest
+            binary: fang-toolkit
+          - target: x86_64-pc-windows-msvc
+            os: windows-latest
+            binary: fang-toolkit.exe
+          - target: x86_64-apple-darwin
+            os: macos-latest
+            binary: fang-toolkit
+          - target: aarch64-apple-darwin
+            os: macos-latest
+            binary: fang-toolkit
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+      - uses: Swatinem/rust-cache@v2
+      - name: Build
+        run: cargo build --release --target ${{ matrix.target }}
+      - name: Rename binary
+        shell: bash
+        run: |
+          cp target/${{ matrix.target }}/release/${{ matrix.binary }} \
+             fang-${{ matrix.target }}${{ matrix.target == 'x86_64-pc-windows-msvc' && '.exe' || '' }}
+      - name: Upload to release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: fang-${{ matrix.target }}*
+
+  publish:
+    name: Publish to crates.io
+    needs: build
+    if: github.event_name == 'release'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Publish
+        run: cargo publish --token ${{ secrets.CRATES_IO_TOKEN }}
