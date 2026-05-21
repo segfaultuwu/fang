@@ -181,6 +181,22 @@ pub fn tools() -> Vec<Tool> {
         },
     },
     Tool {
+        name: "tools::offensive::dos".to_string(),
+        description: "Perform a simple DoS attack by sending repeated requests".to_string(),
+        usage: "tools::offensive::dos <url> <port> <mode>".to_string(),
+        entry_point: |args| {
+            let url = args.first().ok_or_else(|| anyhow::anyhow!("Missing url argument"))?.clone();
+            let port = args.get(1).ok_or_else(|| anyhow::anyhow!("Missing port argument"))?.parse::<u32>()?;
+            let mode = args.get(2).ok_or_else(|| anyhow::anyhow!("Missing mode argument"))?.clone();
+
+            Ok(tokio::task::block_in_place(|| {
+                tokio::runtime::Handle::current().block_on(async move {
+                    crate::tools::offensive::dos::start(&url, port as u16, &mode).await
+                })
+            }))
+        },
+    },
+    Tool {
         name: "misc::donate".to_string(),
         description: "Show donation information".to_string(),
         usage: "misc::donate".to_string(),
