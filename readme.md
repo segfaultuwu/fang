@@ -33,7 +33,12 @@
 - [x] http spider
 - [x] reverse tcp host
 - [x] nice ui (i hope)
-- [ ] Scripting (TODO)
+
+| Task          | Priority | Status   |
+| ------------- | -------- | -------- |
+| Proxy Support | High     | Not done |
+| Scripting     | High     | Not done |
+| Themes        | Low      | Not done |
 
 ### License:
 
