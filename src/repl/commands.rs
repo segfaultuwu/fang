@@ -162,6 +162,22 @@ pub fn tools() -> Vec<Tool> {
         },
     },
     Tool {
+        name: "tools::http::spider".to_string(),
+        description: "Crawl a site and list discovered links".to_string(),
+        usage: "tools::http::spider <url> <depth> [file_to_save]".to_string(),
+        entry_point: |args| {
+            let url = args.get(0).ok_or_else(|| anyhow::anyhow!("Missing url argument"))?.clone();
+            let depth = args.get(1).ok_or_else(|| anyhow::anyhow!("Missing depth argument"))?.parse::<usize>()?;
+            let file_to_save = args.get(2).cloned();
+
+            tokio::task::block_in_place(|| {
+                tokio::runtime::Handle::current().block_on(async move {
+                    crate::tools::http::spider::scrape(&url, depth, file_to_save).await
+                })
+            })
+        },
+    },
+    Tool {
         name: "misc::donate".to_string(),
         description: "Show donation information".to_string(),
         usage: "misc::donate".to_string(),

@@ -16,6 +16,21 @@
 
 - `cargo install fang-toolkit`
 
+### Features:
+
+- [x] port scan
+- [x] ping
+- [x] dns lookup
+- [x] http operations
+- [x] http spider
+- [x] reverse tcp host
+- [x] nice ui (i hope)
+- [ ] Scripting (TODO)
+
+### License:
+
+- Apache-2.0
+
 ### Support me:
 
 - `XMR` - `482wWwVZsBkbkYAgkGKMF8ZKRJ5Vt32jRS7MMNtoFuLpRtLRiHaxcbAMAid9LeevsGNwtX3NLoZ6b4inFWfGJ68sNUhck64`
