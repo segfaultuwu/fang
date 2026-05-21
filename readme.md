@@ -43,10 +43,6 @@
 
 - Apache-2.0
 
-### Community
-
-<iframe src="https://discord.com/widget?id=1507077131346247810&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
-
 ### Support me:
 
 - `XMR` - `482wWwVZsBkbkYAgkGKMF8ZKRJ5Vt32jRS7MMNtoFuLpRtLRiHaxcbAMAid9LeevsGNwtX3NLoZ6b4inFWfGJ68sNUhck64`
