@@ -26,19 +26,17 @@
 
 ### Features:
 
-- [x] port scan
-- [x] ping
-- [x] dns lookup
-- [x] http operations
-- [x] http spider
-- [x] reverse tcp host
-- [x] nice ui (i hope)
-
-| Task          | Priority | Status   |
-| ------------- | -------- | -------- |
-| Proxy Support | High     | Not done |
-| Scripting     | High     | Not done |
-| Themes        | Low      | Not done |
+| Task            | Priority | Status   |
+| --------------- | -------- | -------- |
+| Proxy Support   | High     | Not done |
+| Scripting       | High     | Not done |
+| Themes          | Low      | Not done |
+| Port scan       | N/A      | Done     |
+| Ping            | N/A      | Done     |
+| Http operations | N/A      | Done     |
+| Http crawler    | N/A      | Done     |
+| Reverse TCP     | N/A      | Done     |
+| Nice UI         | N/A      | Done     |
 
 ### License:
 
