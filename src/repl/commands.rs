@@ -35,6 +35,21 @@ pub fn tools() -> Vec<Tool> {
         },
     },
     Tool {
+        name: "tools::tcp::portscan".to_string(),
+        description: "Scan common ports on a host".to_string(),
+        usage: "tools::tcp::portscan <host> <quick/web/db/full>".to_string(),
+        entry_point: |args| {
+            let host = args.get(0).ok_or_else(|| anyhow::anyhow!("Missing host argument"))?.clone();
+            let scan_type = args.get(1).ok_or_else(|| anyhow::anyhow!("Missing scan type argument"))?.clone();
+
+            tokio::task::block_in_place(|| {
+                tokio::runtime::Handle::current().block_on(async move {
+                    crate::tools::tcp::portscan::scan(&host, &scan_type).await
+                })
+            })
+        },
+    },
+    Tool {
         name: "tools::encode".to_string(),
         description: "Encode a string in various formats".to_string(),
         usage: "tools::encode <b64/hex/rot13> <input>".to_string(),
@@ -144,6 +159,15 @@ pub fn tools() -> Vec<Tool> {
                     crate::tools::http::delete::url(&url, borrowed.as_deref()).await
                 })
             })
+        },
+    },
+    Tool {
+        name: "misc::donate".to_string(),
+        description: "Show donation information".to_string(),
+        usage: "misc::donate".to_string(),
+        entry_point: |_args| {
+            crate::misc::donate();
+            Ok(())
         },
     }
     ]
