@@ -8,7 +8,6 @@
 ![Crates.io](https://img.shields.io/crates/v/fang-toolkit)
 ![Downloads](https://img.shields.io/crates/d/fang-toolkit)
 
-![GitHub Stats](https://github-readme-stats.vercel.app/api/pin/?username=segfaultuwu&repo=fang&theme=dark&bg_color=0d0d0d&title_color=ff3333&icon_color=00ffff&text_color=ffffff)
 <a href='https://ko-fi.com/E1E2Y454F' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi6.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 
 ![screenshot](assets/ss.png)
