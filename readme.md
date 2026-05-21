@@ -7,6 +7,7 @@
 ![Build](https://img.shields.io/github/actions/workflow/status/segfaultuwu/fang/rust.yml?branch=main)
 ![Crates.io](https://img.shields.io/crates/v/fang-toolkit)
 ![Downloads](https://img.shields.io/crates/d/fang-toolkit)
+![Discord](https://img.shields.io/discord/1507077131346247810?color=5865F2&label=Discord&logo=discord)
 
 <a href='https://ko-fi.com/E1E2Y454F' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi6.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 
@@ -41,6 +42,10 @@
 ### License:
 
 - Apache-2.0
+
+### Community
+
+<iframe src="https://discord.com/widget?id=1507077131346247810&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
 
 ### Support me:
 
