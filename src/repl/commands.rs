@@ -2,13 +2,16 @@ use owo_colors::OwoColorize;
 
 use crate::{repl::style, tools::Tool};
 
+type QueryPairs = Vec<(String, String)>;
+type HttpArgs = (String, Option<QueryPairs>, Option<String>);
+
 pub fn tools() -> Vec<Tool> {
     vec![Tool {
         name: "tools::tcp::ping".to_string(),
         description: "Check whether a host is reachable".to_string(),
         usage: "tools::tcp::ping <host> <port> <retries>".to_string(),
         entry_point: |args| {
-            let host = args.get(0).ok_or_else(|| anyhow::anyhow!("Missing host argument"))?;
+            let host = args.first().ok_or_else(|| anyhow::anyhow!("Missing host argument"))?;
             let port = args.get(1).ok_or_else(|| anyhow::anyhow!("Missing port argument"))?.parse::<u16>()?;
             let retries = args.get(2).ok_or_else(|| anyhow::anyhow!("Missing retries argument"))?.parse::<u32>()?;
             let host = host.clone();
@@ -25,7 +28,7 @@ pub fn tools() -> Vec<Tool> {
         description: "Set up a reverse TCP shell".to_string(),
         usage: "tools::tcp::reverse_tcp <lport>".to_string(),
         entry_point: |args| {
-            let lport = args.get(0).ok_or_else(|| anyhow::anyhow!("Missing local port argument"))?.parse::<u16>()?;
+            let lport = args.first().ok_or_else(|| anyhow::anyhow!("Missing local port argument"))?.parse::<u16>()?;
 
             tokio::task::block_in_place(|| {
                 tokio::runtime::Handle::current().block_on(async move {
@@ -39,7 +42,7 @@ pub fn tools() -> Vec<Tool> {
         description: "Scan common ports on a host".to_string(),
         usage: "tools::tcp::portscan <host> <quick/web/db/full>".to_string(),
         entry_point: |args| {
-            let host = args.get(0).ok_or_else(|| anyhow::anyhow!("Missing host argument"))?.clone();
+            let host = args.first().ok_or_else(|| anyhow::anyhow!("Missing host argument"))?.clone();
             let scan_type = args.get(1).ok_or_else(|| anyhow::anyhow!("Missing scan type argument"))?.clone();
 
             tokio::task::block_in_place(|| {
@@ -74,7 +77,7 @@ pub fn tools() -> Vec<Tool> {
         description: "Resolve DNS records for a domain".to_string(),
         usage: "tools::recon::dns <domain>".to_string(),
         entry_point: |args| {
-            let domain = args.get(0).ok_or_else(|| anyhow::anyhow!("Missing domain argument"))?.clone();
+            let domain = args.first().ok_or_else(|| anyhow::anyhow!("Missing domain argument"))?.clone();
 
             tokio::task::block_in_place(|| {
                 tokio::runtime::Handle::current().block_on(async move {
@@ -88,7 +91,7 @@ pub fn tools() -> Vec<Tool> {
         description: "Send an HTTP GET request".to_string(),
         usage: "tools::http::get <url> [key=value ...]".to_string(),
         entry_point: |args| {
-            let url = args.get(0).ok_or_else(|| anyhow::anyhow!("Missing url argument"))?.clone();
+            let url = args.first().ok_or_else(|| anyhow::anyhow!("Missing url argument"))?.clone();
             let params = parse_query_pairs(&args[1..])?;
             tokio::task::block_in_place(|| {
                 tokio::runtime::Handle::current().block_on(async move {
@@ -146,7 +149,7 @@ pub fn tools() -> Vec<Tool> {
         description: "Send an HTTP DELETE request".to_string(),
         usage: "tools::http::delete <url> [key=value ...]".to_string(),
         entry_point: |args| {
-            let url = args.get(0).ok_or_else(|| anyhow::anyhow!("Missing url argument"))?.clone();
+            let url = args.first().ok_or_else(|| anyhow::anyhow!("Missing url argument"))?.clone();
             let params = parse_query_pairs(&args[1..])?;
             tokio::task::block_in_place(|| {
                 tokio::runtime::Handle::current().block_on(async move {
@@ -166,7 +169,7 @@ pub fn tools() -> Vec<Tool> {
         description: "Crawl a site and list discovered links".to_string(),
         usage: "tools::http::spider <url> <depth> [file_to_save]".to_string(),
         entry_point: |args| {
-            let url = args.get(0).ok_or_else(|| anyhow::anyhow!("Missing url argument"))?.clone();
+            let url = args.first().ok_or_else(|| anyhow::anyhow!("Missing url argument"))?.clone();
             let depth = args.get(1).ok_or_else(|| anyhow::anyhow!("Missing depth argument"))?.parse::<usize>()?;
             let file_to_save = args.get(2).cloned();
 
@@ -207,7 +210,7 @@ pub fn print_help() {
     }
 }
 
-fn parse_query_pairs(args: &[String]) -> anyhow::Result<Option<Vec<(String, String)>>> {
+fn parse_query_pairs(args: &[String]) -> anyhow::Result<Option<QueryPairs>> {
     let mut pairs = Vec::new();
 
     for arg in args {
@@ -223,8 +226,8 @@ fn parse_query_pairs(args: &[String]) -> anyhow::Result<Option<Vec<(String, Stri
     }
 }
 
-fn parse_http_args(args: &[String]) -> anyhow::Result<(String, Option<Vec<(String, String)>>, Option<String>)> {
-    let url = args.get(0).ok_or_else(|| anyhow::anyhow!("Missing url argument"))?.clone();
+fn parse_http_args(args: &[String]) -> anyhow::Result<HttpArgs> {
+    let url = args.first().ok_or_else(|| anyhow::anyhow!("Missing url argument"))?.clone();
     let mut params = Vec::new();
     let mut body = None;
     let mut index = 1;

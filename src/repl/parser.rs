@@ -7,12 +7,12 @@ pub struct Command {
 pub fn lex(input: &str) -> anyhow::Result<Vec<String>> {
     let mut tokens = Vec::new();
     let mut current = String::new();
-    let mut chars = input.chars().peekable();
+    let chars = input.chars().peekable();
     let mut in_quotes = false;
     let mut quote_char = '\0';
     let mut escaped = false;
 
-    while let Some(ch) = chars.next() {
+    for ch in chars {
         if escaped {
             current.push(ch);
             escaped = false;

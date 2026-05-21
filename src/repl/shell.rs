@@ -1,6 +1,6 @@
 use std::borrow::Cow;
 
-use crate::repl::{parser::parse_command, style};
+use crate::repl::parser::parse_command;
 use rustyline::completion::{Completer, Pair};
 use rustyline::error::ReadlineError;
 use rustyline::highlight::{CmdKind, Highlighter};

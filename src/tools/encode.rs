@@ -17,7 +17,7 @@ fn rot13(input: &str) -> String {
 pub fn encode_str(args: &[String]) -> anyhow::Result<String> {
     let engine = base64::engine::general_purpose::STANDARD;
     let algorithm = args
-        .get(0)
+        .first()
         .ok_or_else(|| anyhow::anyhow!("Missing algorithm argument"))?;
     let input = args
         .get(1..)
@@ -35,7 +35,7 @@ pub fn encode_str(args: &[String]) -> anyhow::Result<String> {
 pub fn decode_str(args: &[String]) -> anyhow::Result<String> {
     let engine = base64::engine::general_purpose::STANDARD;
     let algorithm = args
-        .get(0)
+        .first()
         .ok_or_else(|| anyhow::anyhow!("Missing algorithm argument"))?;
     let input = args
         .get(1..)

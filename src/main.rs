@@ -1,5 +1,3 @@
-use tokio::time::{sleep, Duration};
-
 mod tools;
 mod ui;
 mod repl;
