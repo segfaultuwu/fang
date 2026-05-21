@@ -1,7 +1,13 @@
 [package]
-name = "fang"
+name = "fang-toolkit"
 version = "0.1.0"
-edition = "2024"
+edition = "2021"
+description = "A hackers toolkit"
+license = "Apache-2.0"
+repository = "https://github.com/segfaultuwu/fang"
+readme = "readme.md"
+keywords = ["hacking", "security", "network", "toolkit"]
+categories = ["command-line-utilities"]
 
 [dependencies]
 anyhow = "1.0.102"

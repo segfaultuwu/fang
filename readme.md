@@ -12,6 +12,10 @@
 
 - `help`
 
+### How to install?
+
+- `cargo install fang-toolkit`
+
 ### Support me:
 
 - `XMR` - `482wWwVZsBkbkYAgkGKMF8ZKRJ5Vt32jRS7MMNtoFuLpRtLRiHaxcbAMAid9LeevsGNwtX3NLoZ6b4inFWfGJ68sNUhck64`
